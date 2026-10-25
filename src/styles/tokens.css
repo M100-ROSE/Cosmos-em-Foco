@@ -1,0 +1,81 @@
+// Design Tokens - Blog de Astronomia
+// Tema: "Aconchego do Cosmos"
+
+// Cores
+export const colors = {
+  // Fundo e base
+  nightDeep: '#0A0E2B',
+  nightMedium: '#1A1F45',
+  nightLight: '#2D3748',
+  
+  // Acentos
+  nebulaPurple: '#A97FFF',
+  starOrange: '#FF6B6B',
+  emeraldGreen: '#6BCB77',
+  celesteSoft: '#6C8EBF',
+  
+  // Texto
+  whitePrimary: '#F8F9FA',
+  grayMuted: '#4A5568',
+  grayLight: '#EDF2F7',
+  
+  // States
+  hoverEffect: 'rgba(169, 127, 255, 0.15)',
+  borderFocus: '#A97FFF'
+};
+
+// Tipografia
+export const typography = {
+  // Títulos - Serifado
+  display: {
+    family: "'Playfair Display', serif',
+    sizes: {
+      h1: '3rem',
+      h2: '2.25rem', 
+      h3: '1.75rem',
+      h4: '1.5rem'
+    },
+    weights: [400, 700]
+  },
+  
+  // Texto corporal - Sem serifado
+  body: {
+    family: "'Inter', sans-serif',
+    sizes: {
+      lg: '1.125rem',
+      md: '1rem',
+      sm: '0.875rem'
+    },
+    weights: [400, 500, 600],
+    lineHeight: {
+      normal: '1.6',
+      tight: '1.4'
+    }
+  }
+};
+
+// Espaçamento
+export const spacing = {
+  xs: '0.25rem',
+  sm: '0.5rem',
+  md: '1rem',
+  lg: '1.5rem',
+  xl: '3rem',
+  xxl: '4rem'
+};
+
+// Border radius
+export const borderRadius = {
+  sm: '0.25rem',
+  md: '0.5rem',
+  lg: '0.75rem',
+  full: '9999px'
+};
+
+// Sombras
+export const shadows = {
+  sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+  md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+  lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+  focus: '0 0 0 2px rgba(169, 127, 255, 0.4)'
+};

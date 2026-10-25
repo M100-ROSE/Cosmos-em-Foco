@@ -1,0 +1,187 @@
+// Fontes importadas
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;600&display=swap');
+
+// Variáveis CSS - Tokens de design
+:root {
+  --night-deep: #0A0E2B;
+  --night-medium: #1A1F45;
+  --night-light: #2D3748;
+  --nebula-purple: #A97FFF;
+  --star-orange: #FF6B6B;
+  --emerald-green: #6BCB77;
+  --celeste-soft: #6C8EBF;
+  --white-primary: #F8F9FA;
+  --gray-muted: #4A5568;
+  --gray-light: #EDF2F7;
+  --border-focus: #A97FFF;
+}
+
+/* Fundo global com sutil estrelas */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--night-deep);
+  background-image: 
+    radial-gradient(ellipse at 20% 20%, rgba(169, 127, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(107, 107, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 40%, rgba(187, 233, 195, 0.08) 0%, transparent 50%);
+  min-height: 100vh;
+  color: var(--white-primary);
+  overflow-x: hidden;
+}
+
+/* Estrelas sutis como pseudo-elementos */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background-color: var(--white-primary);
+  opacity: 0.3;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+body::before {
+  top: 10%;
+  left: 15%;
+  animation: twinkle 3s infinite ease-in-out;
+}
+
+body::after {
+  top: 70%;
+  left: 80%;
+  animation: twinkle 4s infinite ease-in-out;
+  animation-delay: 1s;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.5); }
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, var(--night-deep) 0%, var(--night-medium) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Estados de foco */
+input:focus,
+button:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Cards */
+.post-card {
+  background-color: var(--night-medium);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Line clamp para excerpts */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+/* Gradientes para CTA */
+.btn-cta {
+  background: linear-gradient(135deg, var(--nebula-purple) 0%, var(--star-orange) 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(169, 127, 255, 0.4);
+}
+
+.btn-cta:active {
+  transform: scale(0.98);
+}
+
+/* Container principal */
+.main-content {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Seções */
+.section {
+  padding: 4rem 0;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: var(--white-primary);
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+  .hero-post {
+    margin-bottom: 1rem;
+  }
+  
+  .post-card {
+    margin-bottom: 1rem;
+  }
+  
+  .header {
+    min-height: 60px;
+    padding: 1rem;
+  }
+  
+  .search-bar {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .post-card {
+    width: calc(50% - 1rem);
+    margin-bottom: 1.5rem;
+  }
+  
+  .hero-post {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .post-card {
+    width: calc(25% - 1.5rem);
+    margin-bottom: 2rem;
+  }
+  
+  .hero-post {
+    margin-bottom: 2.5rem;
+  }
+}
