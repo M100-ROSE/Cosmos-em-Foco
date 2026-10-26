@@ -14,8 +14,8 @@ respostas fora de ordem.
 | `src/services/postsApi.js` | Funções assíncronas de consulta (`getPosts`, `getFeaturedPost`, `getPostBySlug`, `getCategories`, `getRelatedPosts`). |
 | `src/utils/formatDate.js` | `formatDate(isoDate)` (named e default). |
 
-> `src/data/samplePosts.js` continua existindo por decisão do time, mas **não é usado
-> por esta camada**. Não importe ele nos componentes novos.
+> `src/data/samplePosts.js` **foi eliminado** do projeto. `src/data/posts.js` é a
+> única fonte de posts; não recrie nem importe o arquivo antigo.
 
 ## Shape de Post
 

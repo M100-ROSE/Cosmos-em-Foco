@@ -116,13 +116,12 @@ O projeto **não compilava**. Correções aplicadas nesta entrega:
       continua rastreando esses arquivos e o `git status` fica permanentemente sujo.
       Precisa de autorização para `git rm -r --cached node_modules` + commit
       (`chore:`). Não foi feito nesta rodada de propósito.
-- [ ] `src/data/CONTRATO.md` afirma que `src/data/samplePosts.js` "continua existindo";
-      o arquivo foi **removido de propósito**. Corrigir a nota (não foi tocado nesta
-      rodada porque `src/**` estava fora do escopo).
 - [ ] Nenhum teste automatizado (`npm test` existe, sem arquivos de teste).
-- [ ] `public/` tem só `index.html`: falta `favicon.ico`, `robots.txt` e um ícone
-      social (Open Graph) para compartilhamento.
-- [ ] Artigos não têm `<meta property="og:...">` por rota (só `document.title`).
+- [ ] `public/` já tem `favicon.svg` e `robots.txt`, mas **falta uma imagem Open Graph
+      local 1200×630**. Hoje o `og:image` aponta para uma URL da NASA (hotlink), o que
+      depende de terceiros e não é o ideal para compartilhamento.
+- [ ] Artigos não têm `<meta property="og:...">` por rota (só `document.title`); o
+      `public/index.html` tem apenas as metatags estáticas da home.
 - [ ] Busca e filtros não são refletidos na URL — recarregar perde o estado.
 - [ ] Imagens são hotlink de `images-assets.nasa.gov`: se o domínio mudar, o
       `FallbackImage` entra em ação, mas o ideal é migrar para imagens locais
@@ -286,6 +285,56 @@ projeto que não compilava.
 - [ ] Adicionar `favicon.ico`, `robots.txt` e metatags Open Graph por rota.
 - [ ] Refletir busca/categoria na URL para permitir recarregar sem perder estado.
 - [ ] Avaliar migrar as imagens da NASA para arquivos locais otimizados.
+
+---
+
+### 2026-10-26 — Acabamento: favicon, robots.txt e metatags Open Graph
+
+**Solicitação original:** versionar a rodada curta de acabamento da Anna — criar
+`public/favicon.svg` e `public/robots.txt`, completar as metatags de compartilhamento
+em `public/index.html` e corrigir a nota desatualizada sobre `samplePosts.js` em
+`src/data/CONTRATO.md`.
+
+**O que foi feito:**
+
+1. `git status` e `git diff` inspecionados: as quatro mudanças do resumo conferem com
+   o diff real. Fora elas, só aparecem as alterações pré-existentes de `node_modules/`
+   (213 registros), que **ficaram fora** do índice — o untrack segue pendente de
+   autorização. `build/` continua ignorado e ausente do índice.
+2. `public/favicon.svg` revisado: estrela vetorial de 4 pontas (`#A97FFF`) com um
+   pequeno círculo de destaque (`#FF6B6B`), `viewBox="0 0 32 32"`, `role="img"` e
+   `aria-label` em pt-BR.
+3. `public/robots.txt` revisado: `User-agent: *` / `Allow: /`, sem `Sitemap` — decisão
+   correta, porque o site usa hash routing e o rastreador só enxerga uma URL.
+4. `public/index.html` revisado: `color-scheme=dark`, favicon SVG via `%PUBLIC_URL%`,
+   Open Graph completo (`og:type`, `og:site_name`, `og:title`, `og:description`,
+   `og:locale` e `og:image` apontando para a imagem NASA do post em destaque) e
+   Twitter Card `summary_large_image`.
+5. `src/data/CONTRATO.md` revisado: a nota que dizia que `samplePosts.js` "continua
+   existindo" agora afirma que o arquivo foi eliminado e que `posts.js` é a única
+   fonte de posts.
+6. `contexto.md` atualizado: pendências de favicon/robots e da nota do contrato
+   removidas; registrada a pendência que resta (imagem Open Graph local 1200×630).
+7. Commit seletivo apenas com os quatro arquivos + este documento, e push para
+   `origin main`.
+
+**Arquivos alterados:**
+
+- `public/favicon.svg` (novo) — ícone vetorial da marca, `#A97FFF` + `#FF6B6B`.
+- `public/robots.txt` (novo) — libera todos os rastreadores; sem `Sitemap` por causa
+  do hash routing.
+- `public/index.html` (modificado) — `color-scheme`, link do favicon, Open Graph
+  completo e Twitter `summary_large_image`.
+- `src/data/CONTRATO.md` (modificado) — nota corrigida sobre `samplePosts.js`.
+- `contexto.md` (modificado) — pendências atualizadas e esta entrada.
+
+**Pendências:**
+
+- [ ] Criar uma imagem Open Graph **local** 1200×630 (hoje é hotlink da NASA) e
+      apontar `og:image`/`twitter:image` para ela.
+- [ ] Metatags `og:` por rota nos artigos, não só as estáticas da home.
+- [ ] Remover os 19.097 arquivos de `node_modules` do índice — aguardando autorização.
+- [ ] Escrever testes automatizados.
 
 ---
 
