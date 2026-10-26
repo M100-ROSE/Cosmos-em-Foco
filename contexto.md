@@ -29,6 +29,9 @@ histórico de entregas, para que nada se perca entre sessões.
 vem do Node/`react-scripts`, não do app.
 
 - **Branch:** `main` — remoto `origin` = `https://github.com/M100-ROSE/Cosmos-em-Foco.git`.
+- **Versionamento:** `node_modules/` e `build/` estão fora do repositório
+  (`.gitignore`). As dependências são reinstaladas com `npm install`, a partir do
+  `package-lock.json` (lockfileVersion 3). O working tree fica limpo entre sessões.
 - **Stack:** React 18 + Create React App 5, CSS puro com custom properties, zero
   dependências de UI. Dependências de runtime: `react`, `react-dom`, `react-scripts`.
 - **Rotas (hash routing):** `#/`, `#/post/:slug`, `#/categoria/:id`, `#/sobre`; qualquer
@@ -111,11 +114,6 @@ O projeto **não compilava**. Correções aplicadas nesta entrega:
 
 ### Pendências
 
-- [ ] **`node_modules` está versionado no repositório** (19.097 arquivos). O
-      `.gitignore` agora está commitado, mas não tem efeito retroativo: o índice
-      continua rastreando esses arquivos e o `git status` fica permanentemente sujo.
-      Precisa de autorização para `git rm -r --cached node_modules` + commit
-      (`chore:`). Não foi feito nesta rodada de propósito.
 - [ ] Nenhum teste automatizado (`npm test` existe, sem arquivos de teste).
 - [ ] `public/` já tem `favicon.svg` e `robots.txt`, mas **falta uma imagem Open Graph
       local 1200×630**. Hoje o `og:image` aponta para uma URL da NASA (hotlink), o que
@@ -335,6 +333,62 @@ em `public/index.html` e corrigir a nota desatualizada sobre `samplePosts.js` em
 - [ ] Metatags `og:` por rota nos artigos, não só as estáticas da home.
 - [ ] Remover os 19.097 arquivos de `node_modules` do índice — aguardando autorização.
 - [ ] Escrever testes automatizados.
+
+---
+
+### 2026-10-26 — remoção do `node_modules` do versionamento
+
+**Solicitação original:** com autorização explícita do usuário, tirar os 19.097
+arquivos de `node_modules` do índice do Git — eles estavam rastreados desde antes
+do nosso trabalho — sem apagar nada do disco, commitando e enviando para o remoto.
+
+**O que foi feito:**
+
+1. Estado conferido antes de agir: `git status -sb` (working tree com 12 arquivos
+   modificados e ~213 deletados dentro de `node_modules`, todos pré-existentes) e
+   `git log --oneline -3` (`330611cd` no topo). Contagem registrada:
+   **19.097 arquivos rastreados** em `node_modules`.
+2. `.gitignore` confirmado: `node_modules` e `/build` (linhas 1 e 2).
+3. `package-lock.json` confirmado como versionado e íntegro: 646.772 bytes,
+   `lockfileVersion: 3`, `name: cosmos-em-foco`. É ele que garante a reinstalação.
+4. `git rm -r --cached node_modules` executado (sem `-f`, sem `--quiet`):
+   **19.097 deleções** no índice, todas dentro de `node_modules` — nenhuma entrada
+   fora da pasta. Conferido depois: `git ls-files node_modules` vazio.
+5. Integridade do disco verificada: `node_modules/webpack/package.json`,
+   `node_modules/react/package.json` e `node_modules/tailwindcss/package.json`
+   todos presentes (`Test-Path` = `True`). Os arquivos saíram **só do índice**.
+6. Nenhuma alteração em `src/**` ou `public/**` apareceu no `git status` — o único
+   conteúdo staged eram as deleções de `node_modules`.
+7. Commit `chore: remove node_modules do versionamento`, explicando no corpo que os
+   arquivos já estavam rastreados, que `.gitignore` não tem efeito retroativo e que
+   a reinstalação vem do `npm install` sobre o `package-lock.json`.
+8. `npm run build` rodado **com o `node_modules` local intacto**:
+   `Compiled successfully`, 71,03 kB JS e 7,66 kB CSS (gzip) — idêntico ao baseline.
+   Só o aviso `DEP0176` (`fs.F_OK`), que vem do Node/`react-scripts`.
+9. `.gitignore` validado com `git check-ignore -v`: `node_modules` e `build` seguem
+   ignorados; `git status -sb` final limpo (sem `ahead`/`behind` após o push).
+10. Compressão do repositório medida após a limpeza: `git count-objects -vH` →
+    pack de **28,13 MiB**, 19.659 objetos (a remoção não reescreve o histórico, então
+    os blobs antigos continuam no pack; o ganho é de clareza operacional, não de
+    tamanho).
+
+**Arquivos alterados:**
+
+- `node_modules/**` (removido do índice, 19.097 arquivos) — continuam no disco.
+- `contexto.md` (modificado) — pendência nº 1 removida, nota de versionamento no
+  Estado atual e esta entrada.
+
+**Pendências:**
+
+- [ ] Escrever testes automatizados.
+- [ ] Criar imagem Open Graph local 1200×630 e apontar `og:image`/`twitter:image`.
+- [ ] Metatags `og:` por rota nos artigos.
+- [ ] Refletir busca/categoria na URL.
+- [ ] Avaliar migrar imagens da NASA para arquivos locais otimizados.
+- [ ] Preencher os briefings com as respostas da Day.
+- [ ] Opcional: rodar `git gc --prune=now` em algum momento para o pack não carregar
+      os blobs órfãos de `node_modules` (não foi feito: reescreve objetos antigos e
+      precisa de janela combinada com o time).
 
 ---
 
