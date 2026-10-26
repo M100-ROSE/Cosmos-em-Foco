@@ -36,8 +36,9 @@ histórico de entregas, para que nada se perca entre sessões.
   - `src/utils/formatDate.js`
   - `public/index.html`
 - **Documentação:** `docs/design-spec.md` (especificação de design),
-  `design-layout-blog-astronomia.md` (referência de layout) e
-  `briefing-site.txt` (questionário de briefing do site).
+  `design-layout-blog-astronomia.md` (referência de layout) e os briefings do
+  site: `briefing-site.txt` (completo, 118 perguntas) e `briefing-simples.txt`
+  (versão simplificada, 33 perguntas).
 - **Pendência estrutural conhecida:** o repositório tem **19.097 arquivos de
   `node_modules` versionados**. O `.gitignore` com a linha `node_modules` existe
   no disco mas ainda **não está commitado**, por isso não tem efeito. Isso
@@ -82,6 +83,46 @@ pela Day, sem tocar em código, em `src/` ou em `public/`.
       `docs/`, `src/data/`, `src/services/`, `src/utils/`.
 - [ ] Revisar os arquivos de `node_modules` que aparecem como modificados ou
       deletados no `git status` (possível instalação parcial ou limpeza local).
+
+---
+
+### 2026-10-26 - Versão simplificada do briefing de site (33 perguntas)
+
+**Solicitação original:** registrar no Git a versão simplificada do briefing
+criada pela Day, sem tocar em código, `src/`, `docs/`, `node_modules` ou no
+`briefing-site.txt`.
+
+**O que foi feito:**
+
+1. `git status` e `git diff` inspecionados antes de qualquer ação: as alterações
+   em `node_modules/`, `package.json` e `src/styles/tokens.css`, além dos itens
+   ainda não rastreados (`.gitignore`, `docs/`, `package-lock.json`, `src/data/`,
+   `src/services/`, `src/utils/`), são pré-existentes e **ficaram fora** deste
+   commit.
+2. `briefing-simples.txt` validado: 6.693 bytes, UTF-8 sem BOM, quebras LF,
+   pt-BR, 33 perguntas numeradas distribuídas em 6 seções (Objetivo; Público e
+   Conteúdo; Identidade Visual; Estrutura e Funcionalidades; Técnico e SEO;
+   Prazo, Orçamento e Aprovação). O resumo do time confere com o arquivo real.
+3. Registro desta entrega no histórico e menção aos dois briefings (completo com
+   118 perguntas e simplificado com 33) no Estado atual.
+
+**Arquivos alterados:**
+
+- `briefing-simples.txt` (novo) - versão simplificada do briefing, 33 perguntas
+  em 6 seções, texto puro UTF-8.
+- `contexto.md` (modificado) - nova entrada de histórico e atualização da seção
+  de documentação.
+
+**Pendências:**
+
+- [ ] Preencher as respostas do `briefing-simples.txt` (e do briefing completo,
+      se necessário) com a Day.
+- [ ] Remover os 19.097 arquivos de `node_modules` do índice e commitar o
+      `.gitignore` que já existe no disco.
+- [ ] Commitar (ou descartar conscientemente) as alterações pendentes fora
+      deste commit: `package.json`, `package-lock.json`,
+      `src/styles/tokens.css`, `docs/`, `src/data/`, `src/services/`,
+      `src/utils/`.
 
 ---
 

@@ -1,0 +1,137 @@
+================================================================================
+BRIEFING SIMPLIFICADO DE SITE
+================================================================================
+
+Projeto: _______________________________________________________________________
+Responsável: ___________________________________________________________________
+Data: __________________________________________________________________________
+
+Preencha a linha "Resposta:" de cada pergunta. Se algo ainda não estiver
+definido, escreva "A DEFINIR".
+
+================================================================================
+SEÇÃO 1 - OBJETIVO
+================================================================================
+
+1. O que este site precisa resolver ou comunicar?
+   Resposta: ___________________________________________________________________
+
+2. Qual é a meta principal e mensurável nos próximos 6 meses?
+   Resposta: ___________________________________________________________________
+
+3. Qual ação o visitante deve tomar? (ler, assinar, comprar, contatar)
+   Resposta: ___________________________________________________________________
+
+4. O que o site NÃO deve ser ou parecer?
+   Resposta: ___________________________________________________________________
+
+================================================================================
+SEÇÃO 2 - PÚBLICO E CONTEÚDO
+================================================================================
+
+5. Quem é o público principal? Descreva em uma linha.
+   Resposta: ___________________________________________________________________
+
+6. Qual é o idioma do site? (PT apenas, PT + EN, outro)
+   Resposta: ___________________________________________________________________
+
+7. Quem escreve e revisa os textos? (cliente, agência, ambos)
+   Resposta: ___________________________________________________________________
+
+8. Quantas páginas e quantos posts existirão no lançamento?
+   Resposta: ___________________________________________________________________
+
+9. O site tem conteúdo atual que precisa ser migrado? De onde?
+   Resposta: ___________________________________________________________________
+
+10. Qual é o tom de voz? (formal, próximo, técnico, didático)
+    Resposta: ___________________________________________________________________
+
+================================================================================
+SEÇÃO 3 - IDENTIDADE VISUAL
+================================================================================
+
+11. Já existe logo? Em quais formatos? (SVG, PNG, AI, nenhum)
+    Resposta: ___________________________________________________________________
+
+12. Cores e fontes já definidas? Informe os códigos e nomes, se houver.
+    Resposta: ___________________________________________________________________
+
+13. Cite de 2 a 3 sites cujo visual você gosta, com links.
+    Resposta: ___________________________________________________________________
+
+14. O site deve ser escuro, claro ou os dois com alternância?
+    Resposta: ___________________________________________________________________
+
+15. Precisa atender algum nível de acessibilidade? (básico, WCAG AA, não sei)
+    Resposta: ___________________________________________________________________
+
+================================================================================
+SEÇÃO 4 - ESTRUTURA E FUNCIONALIDADES
+================================================================================
+
+16. Quais páginas são obrigatórias no lançamento?
+    Resposta: ___________________________________________________________________
+
+17. Quais itens devem aparecer no menu principal?
+    Resposta: ___________________________________________________________________
+
+18. O site precisa de busca interna? (sim, não)
+    Resposta: ___________________________________________________________________
+
+19. Precisa de newsletter, formulário de contato ou ambos?
+    Resposta: ___________________________________________________________________
+
+20. Haverá login ou área restrita? Para quê?
+    Resposta: ___________________________________________________________________
+
+21. O site será multi-idioma ou terá e-commerce? (sim, não, qual)
+    Resposta: ___________________________________________________________________
+
+================================================================================
+SEÇÃO 5 - TÉCNICO E SEO
+================================================================================
+
+22. Hospedagem e domínio já existem? Estão sob controle de quem?
+    Resposta: ___________________________________________________________________
+
+23. Quem vai editar o conteúdo? Precisa de CMS ou painel simples?
+    Resposta: ___________________________________________________________________
+
+24. Quais ferramentas de analytics e cookies/LGPD são necessárias?
+    Resposta: ___________________________________________________________________
+
+25. Quais são as 5 principais palavras-chave ou temas do site?
+    Resposta: ___________________________________________________________________
+
+26. O site deve ser mobile-first? Quais navegadores precisa suportar?
+    Resposta: ___________________________________________________________________
+
+================================================================================
+SEÇÃO 6 - PRAZO, ORÇAMENTO E APROVAÇÃO
+================================================================================
+
+27. Qual é a data desejada de lançamento? Existe data inegociável?
+    Resposta: ___________________________________________________________________
+
+28. Qual é a faixa de orçamento? (até 3 mil, 3-8 mil, 8-20 mil, acima)
+    Resposta: ___________________________________________________________________
+
+29. O que está incluso na entrega? (design, desenvolvimento, conteúdo, SEO)
+    Resposta: ___________________________________________________________________
+
+30. Haverá manutenção e suporte após o lançamento? Por quanto tempo?
+    Resposta: ___________________________________________________________________
+
+31. Quem aprova as entregas e em quanto tempo?
+    Resposta: ___________________________________________________________________
+
+32. Qual é o canal oficial de contato do projeto? (e-mail, WhatsApp, reunião)
+    Resposta: ___________________________________________________________________
+
+33. Observações, riscos ou pedidos adicionais.
+    Resposta: ___________________________________________________________________
+
+================================================================================
+FIM
+================================================================================
