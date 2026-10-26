@@ -1,89 +1,163 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import SearchBar from '../Search/SearchBar.jsx';
+import './Header.css';
 
-const Header = ({ searchOpen, onSearch, onClose }) => {
-  const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
-  
-  const handleSearchToggle = () => setIsSearchBarOpen(true);
-  const handleClose = () => {
-    setSearchOpen(false);
-    setIsSearchBarOpen(false);
+function StarIcon() {
+  return (
+    <svg
+      className="site-header__star"
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4L12 2z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+function SearchIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+      <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" strokeWidth="2" />
+      <path d="M20 20l-3.5-3.5" fill="none" stroke="currentColor" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+      <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function Header({ routeName, searchTerm, onSearchChange, onSearchSubmit }) {
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const toggleRef = useRef(null);
+  const panelRef = useRef(null);
+
+  const closeSearch = useCallback((restoreFocus = true) => {
+    setMobileSearchOpen(false);
+    if (restoreFocus && toggleRef.current) {
+      toggleRef.current.focus();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!mobileSearchOpen) return undefined;
+
+    const handlePointerDown = (event) => {
+      const clickedPanel = panelRef.current && panelRef.current.contains(event.target);
+      const clickedToggle = toggleRef.current && toggleRef.current.contains(event.target);
+      if (!clickedPanel && !clickedToggle) {
+        setMobileSearchOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        closeSearch(true);
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('touchstart', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('touchstart', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [mobileSearchOpen, closeSearch]);
+
+  const handleMobileSubmit = (value) => {
+    onSearchSubmit(value);
+    closeSearch(true);
   };
-  
-  const handleSearchInputBlur = () => {
-    setIsSearchBarOpen(false);
-    setTimeout(() => onClose(), 150);
-  };
+
+  const isHome = routeName === 'home';
+  const isCategory = routeName === 'category';
+  const isAbout = routeName === 'about';
 
   return (
-    <header 
-      className="header flex items-center justify-between px-4 sm:px-6 h-20 sm:h-16 border-b border-gray-200/50 bg-gradient-to-b from-[var(--night-deep)] to-[var(--night-medium)] backdrop-filter: blur(20px) -webkit-backdrop-filter: blur(20px)"
-    >
-      <div className="flex items-center gap-3">
-        <h1 className="text-xl sm:text-2xl font-serif font-medium tracking-tight text-[var(--white-primary)]">
-          Cosmos em Foco
-        </h1>
-        <button 
-          onClick={handleSearchToggle}
-          className="relative p-2 rounded-md hover:bg-[rgba(169,127,255,0.1)] transition-colors sm:hidden"
-          aria-label="Buscar posts"
-        >
-          <svg className="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M21.5 2.48l-7.173 7.173-1.414-1.414L20.086 6H5.414L1.5 1.5l4.586 4.586L1.414 21.486l1.414 1.414L5.414 22l3.672-3.672-4.584 4.586L18.086 19 21.5 15.5l3.586-3.586z"/>
-          </svg>
-        </button>
+    <header className="site-header">
+      <div className="container site-header__inner">
+        <a className="site-header__brand" href="#/" aria-label="Cosmos em Foco — página inicial">
+          <StarIcon />
+          <span>Cosmos em Foco</span>
+        </a>
+
+        <nav className="site-header__nav" aria-label="Navegação principal">
+          <a
+            className={`nav-link${isHome ? ' nav-link--active' : ''}`}
+            href="#/"
+            aria-current={isHome ? 'page' : undefined}
+          >
+            Início
+          </a>
+          <a
+            className={`nav-link${isCategory ? ' nav-link--active' : ''}`}
+            href="#/categoria/todas"
+            aria-current={isCategory ? 'page' : undefined}
+          >
+            Categorias
+          </a>
+          <a
+            className={`nav-link${isAbout ? ' nav-link--active' : ''}`}
+            href="#/sobre"
+            aria-current={isAbout ? 'page' : undefined}
+          >
+            Sobre
+          </a>
+        </nav>
+
+        <div className="site-header__actions">
+          <SearchBar
+            id="busca-desktop"
+            variant="header"
+            value={searchTerm}
+            onChange={onSearchChange}
+            onSubmit={onSearchSubmit}
+          />
+
+          <button
+            ref={toggleRef}
+            type="button"
+            className="search-toggle"
+            aria-label="Buscar posts"
+            aria-expanded={mobileSearchOpen}
+            aria-controls="mobile-search-panel"
+            onClick={() => setMobileSearchOpen((open) => !open)}
+          >
+            <SearchIcon />
+          </button>
+        </div>
       </div>
-      
-      {/* Barra de busca - aparece quando toggled */}
-      {isSearchBarOpen && (
-        <div className="absolute right-0 top-full w-full max-w-sm mt-2 sm:w-64 bg-white/10 backdrop-filter: blur(10px) rounded-lg px-4 py-2 shadow-lg transform transition-transform duration-200 ease-in-out" style="box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
-          <div className="relative flex items-center gap-2">
-            <svg className="absolute left-3 text-gray-400 w-4 h-4 pointer-events-none" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M21.5 2.48l-7.173 7.173-1.414-1.414L20.086 6H5.414L1.5 1.5l4.586 4.586L1.414 21.486l1.414 1.414L5.414 22l3.672-3.672-4.584 4.586L18.086 19 21.5 15.5l3.586-3.586z"/>
-            </svg>
-            <input
-              type="text"
-              placeholder="Pesquisar postagens sobre o cosmos..."
-              onBlur={handleSearchInputBlur}
-              className="w-full bg-transparent outline-none placeholder-gray-500 text-white py-2 pr-8"
-              style="font-size: 0.875rem;"
+
+      {mobileSearchOpen && (
+        <div className="mobile-search" id="mobile-search-panel" ref={panelRef}>
+          <div className="container mobile-search__inner">
+            <SearchBar
+              id="busca-mobile"
+              variant="mobile"
+              value={searchTerm}
+              onChange={onSearchChange}
+              onSubmit={handleMobileSubmit}
+              onClose={() => closeSearch(true)}
+              autoFocus
             />
-            <span className="absolute right-3 text-gray-400 text-sm">Enter para buscar</span>
-            <button
-              type="button"
-              onClick={handleClose}
-              className="absolute right-3 text-gray-400 hover:text-white transition-colors"
-              aria-label="Fechar busca"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18 6l-12 12m0-12l12 12"/>
-              </svg>
-            </button>
           </div>
         </div>
       )}
-      
-      <nav className="hidden sm:flex items-center gap-6">
-        <a 
-          href="#"
-          className="text-[var(--celeste-soft)] hover:text-[var(--nebula-purple)] transition-colors font-medium"
-        >
-          Home
-        </a>
-        <a 
-          href="#"
-          className="text-[var(--celeste-soft)] hover:text-[var(--nebula-purple)] transition-colors font-medium"
-        >
-          Categorias
-        </a>
-        <a 
-          href="#"
-          className="text-[var(--celeste-soft)] hover:text-[var(--nebula-purple)] transition-colors font-medium"
-        >
-          Sobre
-        </a>
-      </nav>
     </header>
   );
-};
+}
 
 export default Header;

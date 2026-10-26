@@ -1,81 +1,261 @@
-// Design Tokens - Blog de Astronomia
-// Tema: "Aconchego do Cosmos"
+/* ==========================================================================
+   Cosmos em Foco — Design Tokens
+   Arquivo: src/styles/tokens.css
+   Escopo: apenas custom properties em :root. Nenhum seletor de componente,
+   nenhum reset, nenhum utilitário. Este arquivo é importado antes de global.css.
+   Fonte da verdade visual: docs/design-spec.md
+   --------------------------------------------------------------------------
+   BREAKPOINTS (não podem ser custom properties; use os literais nos @media):
+     mobile ......... 0 – 640px      -> 1 coluna
+     tablet ......... 641 – 1024px   -> 2 colunas
+     desktop ........ 1025 – 1279px  -> 3 colunas
+     desktop-lg ..... 1280 – 1440px  -> 4 colunas
+     wide-desktop ... 1441px+        -> 4 colunas, container limitado a 1280px
+   Regras de media query do projeto:
+     @media (max-width: 640px)
+     @media (min-width: 641px)
+     @media (min-width: 1025px)
+     @media (min-width: 1280px)
+     @media (prefers-reduced-motion: reduce)
+   --------------------------------------------------------------------------
+   Nota de acessibilidade: --gray-muted (#4A5568) é mantido por fidelidade à
+   referência, mas SÓ pode ser usado sobre superfícies claras (#F8F9FA/#EDF2F7).
+   Sobre fundo escuro use --color-text-secondary (#8C97B3). Ver docs/design-spec.md.
+   ========================================================================== */
 
-// Cores
-export const colors = {
-  // Fundo e base
-  nightDeep: '#0A0E2B',
-  nightMedium: '#1A1F45',
-  nightLight: '#2D3748',
-  
-  // Acentos
-  nebulaPurple: '#A97FFF',
-  starOrange: '#FF6B6B',
-  emeraldGreen: '#6BCB77',
-  celesteSoft: '#6C8EBF',
-  
-  // Texto
-  whitePrimary: '#F8F9FA',
-  grayMuted: '#4A5568',
-  grayLight: '#EDF2F7',
-  
-  // States
-  hoverEffect: 'rgba(169, 127, 255, 0.15)',
-  borderFocus: '#A97FFF'
-};
+:root {
+  /* ======================================================================
+     1. PALETA BASE — valores da referência (nomes preservados para o JSX)
+     ====================================================================== */
+  --night-deep: #0A0E2B;          /* azul-noite profundo — fundo da página */
+  --night-medium: #1A1F45;        /* azul-noite médio — superfície 2 / header */
+  --night-light: #2D3748;         /* azul-noite claro — texto sobre card claro */
+  --nebula-purple: #A97FFF;       /* roxo nebuloso — acento da marca */
+  --star-orange: #FF6B6B;         /* laranja corpo estelar — CTA */
+  --emerald-green: #6BCB77;       /* verde esmeralda — sucesso */
+  --celeste-soft: #6C8EBF;        /* azul-celeste — links de navegação */
+  --white-primary: #F8F9FA;       /* branco-céu — texto principal / card */
+  --gray-muted: #4A5568;          /* USO RESTRITO a superfícies claras (7.14:1) */
+  --gray-light: #EDF2F7;          /* superfície clara secundária */
+  --border-focus: #C4A7FF;        /* anel de foco sobre fundo escuro (9.29:1) */
 
-// Tipografia
-export const typography = {
-  // Títulos - Serifado
-  display: {
-    family: "'Playfair Display', serif',
-    sizes: {
-      h1: '3rem',
-      h2: '2.25rem', 
-      h3: '1.75rem',
-      h4: '1.5rem'
-    },
-    weights: [400, 700]
-  },
-  
-  // Texto corporal - Sem serifado
-  body: {
-    family: "'Inter', sans-serif',
-    sizes: {
-      lg: '1.125rem',
-      md: '1rem',
-      sm: '0.875rem'
-    },
-    weights: [400, 500, 600],
-    lineHeight: {
-      normal: '1.6',
-      tight: '1.4'
-    }
-  }
-};
+  /* ======================================================================
+     2. CORES SEMÂNTICAS — superfícies em camadas
+     ====================================================================== */
+  --color-bg: #0A0E2B;                    /* fundo global (camada 0) */
+  --color-surface-1: #121736;             /* header sólido, search, chips, footer */
+  --color-surface-2: #1A1F45;             /* seções elevadas, hover de card escuro */
+  --color-surface-card: #F8F9FA;           /* card de post (superfície clara) */
+  --color-surface-card-hover: #FFFFFF;     /* card em hover */
+  --color-surface-card-alt: #EDF2F7;       /* bloco interno de card claro */
 
-// Espaçamento
-export const spacing = {
-  xs: '0.25rem',
-  sm: '0.5rem',
-  md: '1rem',
-  lg: '1.5rem',
-  xl: '3rem',
-  xxl: '4rem'
-};
+  --color-border-subtle: #2C3358;          /* divisor decorativo (não é limite de controle) */
+  --color-border: #3A4370;                 /* borda padrão de card/input escuro */
+  --color-border-strong: #6B7590;          /* limite de controle: 3.81:1 sobre surface-1 */
+  --color-border-light: #D8DEE9;           /* borda sobre card claro (decorativa) */
+  --color-border-light-strong: #6B7590;    /* limite de controle sobre card claro (4.36:1) */
+  --color-border-card: rgba(248, 249, 250, 0.14); /* anel sutil do card claro sobre fundo escuro */
 
-// Border radius
-export const borderRadius = {
-  sm: '0.25rem',
-  md: '0.5rem',
-  lg: '0.75rem',
-  full: '9999px'
-};
+  /* ======================================================================
+     3. TEXTO
+     ====================================================================== */
+  --color-text-primary: #F8F9FA;           /* 17.94:1 sobre bg */
+  --color-text-secondary: #8C97B3;         /* 6.48:1 sobre bg | 5.42:1 sobre surface-2 */
+  --color-text-tertiary: #A8B2C8;          /* 8.88:1 sobre bg — labels e overline */
+  --color-text-on-surface: #C9D2E3;        /* 11.49:1 em surface-1 — links de nav/footer, chips */
+  --color-text-on-media: #E8ECF5;          /* metadados sobre overlay do hero (>=10:1) */
+  --color-white-pure: #FFFFFF;             /* título sobre mídia e hover de marca */
+  --color-text-inverse: #0A0E2B;           /* 17.94:1 sobre card claro */
+  --color-text-inverse-secondary: #4A5568; /* 7.14:1 sobre card claro */
+  --color-text-on-accent: #0A0E2B;         /* 6.45:1 sobre #A97FFF | 6.81:1 sobre #FF6B6B */
+  --color-text-disabled: #6B7590;          /* 4.12:1 — isento de WCAG (disabled) */
+  --color-text-placeholder: #8C97B3;       /* placeholders: sem opacity, 5.99:1 em surface-1 */
 
-// Sombras
-export const shadows = {
-  sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-  md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-  lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-  focus: '0 0 0 2px rgba(169, 127, 255, 0.4)'
-};
+  /* ======================================================================
+     4. ACENTOS, ESTADOS E FEEDBACK
+     ====================================================================== */
+  --color-accent: #A97FFF;                 /* fundos, ícones e traços (>=5.41:1 em surface-2) */
+  --color-accent-hover: #C4A7FF;           /* hover de acento e texto de link no escuro */
+  --color-accent-strong: #C4A7FF;          /* texto roxo sobre fundo escuro (9.29:1) */
+  --color-accent-soft: rgba(169, 127, 255, 0.14);  /* fundo de chip hover / nav hover */
+  --color-accent-softer: rgba(169, 127, 255, 0.08);/* wash de seção */
+  --color-accent-on-light: #6B3FBF;        /* link/foco roxo sobre card claro (6.45:1) */
+
+  --color-cta: #FF6B6B;
+  --color-cta-hover: #FF8585;
+  --color-cta-active: #F25555;
+  --color-success: #6BCB77;
+  --color-danger: #FF8A8A;                 /* 8.33:1 sobre bg — erros de formulário */
+
+  --color-focus-ring: #C4A7FF;             /* anel de foco no escuro */
+  --color-focus-ring-light: #6B3FBF;       /* anel de foco no claro */
+  --color-focus-glow: rgba(169, 127, 255, 0.35);
+
+  --color-disabled-bg: #1A1F45;
+  --color-disabled-border: #2C3358;
+  --color-selectable-bg: rgba(248, 249, 250, 0.06);
+  --color-selectable-hover: rgba(248, 249, 250, 0.10);
+  --color-selectable-active: #A97FFF;
+
+  /* ======================================================================
+     5. GRADIENTES
+     ====================================================================== */
+  --gradient-header: linear-gradient(135deg, #0A0E2B 0%, #1A1F45 100%);
+  --gradient-header-scrolled: linear-gradient(135deg, rgba(10, 14, 43, 0.94) 0%, rgba(26, 31, 69, 0.94) 100%);
+  --gradient-cta: linear-gradient(135deg, #A97FFF 0%, #FF6B6B 100%);
+  --gradient-hero-overlay:
+    linear-gradient(to top, rgba(10, 14, 43, 0.94) 0%, rgba(10, 14, 43, 0.72) 32%, rgba(10, 14, 43, 0.18) 68%, rgba(10, 14, 43, 0) 100%);
+  --gradient-hero-overlay-mobile:
+    linear-gradient(to top, rgba(10, 14, 43, 0.96) 0%, rgba(10, 14, 43, 0.70) 48%, rgba(10, 14, 43, 0.10) 100%);
+  --gradient-skeleton: linear-gradient(90deg, #1A1F45 0%, #242C5C 50%, #1A1F45 100%);
+  --gradient-skeleton-light: linear-gradient(90deg, #E4E9F2 0%, #F3F5F9 50%, #E4E9F2 100%);
+
+  /* ======================================================================
+     6. FUNDO CÓSMICO — 3 camadas, tudo CSS, zero imagem
+     ====================================================================== */
+  --cosmic-glow-1: radial-gradient(1100px 560px at 12% -8%, rgba(169, 127, 255, 0.13) 0%, rgba(169, 127, 255, 0) 62%);
+  --cosmic-glow-2: radial-gradient(820px 460px at 92% 4%, rgba(108, 142, 191, 0.11) 0%, rgba(108, 142, 191, 0) 58%);
+  --cosmic-glow-3: radial-gradient(900px 520px at 48% 106%, rgba(255, 107, 107, 0.06) 0%, rgba(255, 107, 107, 0) 60%);
+  --cosmic-star-color: rgba(248, 249, 250, 0.55);       /* camada 1 — próxima */
+  --cosmic-star-color-dim: rgba(248, 249, 250, 0.42);   /* camada 2 — média */
+  --cosmic-star-color-faint: rgba(248, 249, 250, 0.30); /* camada 3 — distante */
+  --cosmic-star-tile-1: 320px;
+  --cosmic-star-tile-2: 480px;
+  --cosmic-star-tile-3: 640px;
+
+  /* ======================================================================
+     7. TIPOGRAFIA
+     ====================================================================== */
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* 1rem = 16px; escala fixa, exceto display/h1/h2/h3/h4/lead (fluid clamp) */
+  --font-size-display: clamp(2.5rem, 1.65rem + 3.4vw, 4rem);      /* 40 → 64px */
+  --font-size-h1: clamp(2.25rem, 1.9rem + 1.5vw, 3rem);           /* 36 → 48px */
+  --font-size-h2: clamp(1.75rem, 1.6rem + 0.75vw, 2.25rem);       /* 28 → 36px */
+  --font-size-h3: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);       /* 22 → 28px */
+  --font-size-h4: clamp(1.25rem, 1.2rem + 0.25vw, 1.375rem);      /* 20 → 22px */
+  --font-size-lead: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);   /* 18 → 20px */
+  --font-size-body: 1rem;        /* 16px */
+  --font-size-article: 1.125rem; /* 18px — corpo de leitura (16px no mobile) */
+  --font-size-body-sm: 0.875rem; /* 14px */
+  --font-size-caption: 0.8125rem;/* 13px */
+  --font-size-overline: 0.75rem; /* 12px */
+
+  --line-height-display: 1.05;
+  --line-height-h1: 1.1;
+  --line-height-h2: 1.2;
+  --line-height-h3: 1.25;
+  --line-height-h4: 1.3;
+  --line-height-lead: 1.6;
+  --line-height-body: 1.65;
+  --line-height-article: 1.75;
+  --line-height-sm: 1.55;
+  --line-height-caption: 1.4;
+
+  --letter-spacing-display: -0.02em;
+  --letter-spacing-heading: -0.01em;
+  --letter-spacing-body: 0;
+  --letter-spacing-caption: 0.01em;
+  --letter-spacing-overline: 0.08em;
+
+  /* ======================================================================
+     8. ESPAÇAMENTO — base 4px
+     ====================================================================== */
+  --space-1: 0.25rem;  /*  4px */
+  --space-2: 0.5rem;   /*  8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.5rem;   /* 24px */
+  --space-6: 2rem;     /* 32px */
+  --space-7: 2.5rem;   /* 40px */
+  --space-8: 3rem;     /* 48px */
+  --space-9: 4rem;     /* 64px */
+  --space-10: 5rem;    /* 80px */
+  --space-11: 6rem;    /* 96px */
+  --space-12: 8rem;    /* 128px */
+  --space-section: clamp(2.5rem, 6vw, 5rem); /* padding vertical de seção */
+
+  /* aliases legados da referência */
+  --space-xs: var(--space-1);
+  --space-sm: var(--space-2);
+  --space-md: var(--space-4);
+  --space-lg: var(--space-5);
+  --space-xl: var(--space-8);
+  --space-xxl: var(--space-9);
+
+  /* ======================================================================
+     9. RAIOS
+     ====================================================================== */
+  --radius-sm: 0.25rem;  /*  4px — tags/inputs pequenos */
+  --radius-md: 0.5rem;   /*  8px — botões */
+  --radius-lg: 0.75rem;  /* 12px — cards, search, chips */
+  --radius-xl: 1rem;     /* 16px — hero, painéis */
+  --radius-2xl: 1.5rem;  /* 24px — blocos de destaque */
+  --radius-full: 9999px;
+
+  /* ======================================================================
+     10. SOMBRAS (desenhadas para fundo escuro)
+     ====================================================================== */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.28);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.38);
+  --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.45);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.20), 0 8px 24px rgba(0, 0, 0, 0.24);
+  --shadow-card-hover: 0 2px 8px rgba(0, 0, 0, 0.24), 0 16px 40px rgba(0, 0, 0, 0.42);
+  --shadow-header: 0 1px 0 rgba(44, 51, 88, 0.9), 0 8px 24px rgba(0, 0, 0, 0.28);
+  --shadow-focus: 0 0 0 4px rgba(169, 127, 255, 0.35);
+  --shadow-glow: 0 0 24px rgba(169, 127, 255, 0.25);
+
+  /* ======================================================================
+     11. TRANSIÇÕES
+     ====================================================================== */
+  --duration-instant: 80ms;  /* feedback de clique */
+  --duration-fast: 120ms;    /* cor, borda, ícone */
+  --duration-base: 180ms;    /* padrão */
+  --duration-slow: 240ms;    /* elevação de card */
+  --duration-slower: 320ms;  /* entrada de painel/hero */
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-color: color var(--duration-fast) var(--ease-standard),
+                      background-color var(--duration-fast) var(--ease-standard),
+                      border-color var(--duration-fast) var(--ease-standard);
+  --transition-card: transform var(--duration-slow) var(--ease-standard),
+                     box-shadow var(--duration-slow) var(--ease-standard);
+
+  /* ======================================================================
+     12. LAYOUT
+     ====================================================================== */
+  --container-max: 80rem;        /* 1280px */
+  --container-narrow: 45rem;     /* 720px — estados vazios/404 */
+  --article-measure: 68ch;       /* largura de leitura do artigo */
+  --gutter: clamp(1rem, 4vw, 2.5rem);       /* 16 → 40px */
+  --grid-gap-sm: 1rem;           /* 16px — <640 */
+  --grid-gap-md: 1.5rem;         /* 24px — tablet/desktop */
+  --grid-gap-lg: 1.5rem;         /* 24px — wide */
+  --header-height: 5rem;         /* 80px desktop */
+  --header-height-mobile: 4rem;  /* 64px mobile */
+  --hero-height-mobile: 15rem;   /* 240px */
+  --hero-height-tablet: 20rem;   /* 320px */
+  --hero-height-desktop: 25rem;  /* 400px */
+  --card-image-aspect: 16 / 9;
+  --touch-target: 2.75rem;       /* 44px — mínimo de alvo de toque */
+
+  /* ======================================================================
+     13. Z-INDEX
+     ====================================================================== */
+  --z-cosmic: 0;         /* camada de estrelas, atrás do conteúdo */
+  --z-content: 1;
+  --z-sticky: 100;
+  --z-header: 200;
+  --z-search-panel: 250;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-skip-link: 1000;
+}

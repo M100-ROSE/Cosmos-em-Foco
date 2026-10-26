@@ -1,0 +1,106 @@
+.site-footer {
+  margin-top: auto;
+  padding-block: var(--space-6);
+  border-top: 1px solid var(--color-border-subtle);
+  background-color: var(--color-surface-1);
+  color: var(--color-text-secondary);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+.footer-col--brand {
+  max-width: 40ch;
+}
+
+.footer-brand {
+  display: inline-flex;
+  min-height: var(--touch-target);
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-primary);
+  font-family: var(--font-serif);
+  font-size: calc(var(--font-size-body) * 1.25);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-heading);
+  line-height: 1;
+}
+
+.footer-brand svg {
+  flex: 0 0 auto;
+  color: var(--color-accent);
+}
+
+.footer-brand:hover {
+  color: var(--color-white-pure);
+}
+
+.footer-tagline {
+  max-width: 40ch;
+  margin-top: var(--space-2);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-body-sm);
+  line-height: var(--line-height-sm);
+}
+
+.footer-heading {
+  margin-bottom: var(--space-3);
+  color: var(--color-text-tertiary);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-overline);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-overline);
+  text-transform: uppercase;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-links a {
+  display: inline-flex;
+  min-height: var(--touch-target);
+  align-items: center;
+  color: var(--color-text-on-surface);
+  font-size: var(--font-size-body-sm);
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.footer-links a:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border-subtle);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-caption);
+  letter-spacing: var(--letter-spacing-caption);
+}
+
+@media (min-width: 641px) {
+  .site-footer {
+    padding-block: var(--space-8);
+  }
+
+  .footer-grid {
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--space-8);
+  }
+
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: var(--space-6);
+  }
+}

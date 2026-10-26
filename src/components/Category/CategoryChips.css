@@ -1,0 +1,119 @@
+.category-chips {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--space-2);
+  overflow-x: auto;
+  padding: 4px 2px;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.category-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  display: inline-flex;
+  min-height: var(--touch-target);
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 10px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background-color: var(--color-selectable-bg);
+  color: var(--color-text-on-surface);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  scroll-snap-align: start;
+  transition:
+    color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    transform var(--duration-instant) var(--ease-standard);
+}
+
+.chip:hover {
+  border-color: var(--color-accent);
+  background-color: var(--color-selectable-hover);
+  color: var(--color-accent-hover);
+}
+
+.chip--selected,
+.chip[aria-pressed='true'] {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+  color: var(--color-text-on-accent);
+  font-weight: var(--font-weight-semibold);
+}
+
+.chip--selected:hover,
+.chip[aria-pressed='true']:hover {
+  border-color: var(--color-accent-hover);
+  background-color: var(--color-accent-hover);
+  color: var(--color-text-on-accent);
+}
+
+.chip:active {
+  transform: scale(0.98);
+}
+
+.chip__count {
+  display: inline-flex;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-selectable-hover);
+  font-size: var(--font-size-overline);
+  font-weight: var(--font-weight-semibold);
+}
+
+.chip[aria-pressed='true'] .chip__count {
+  background-color: var(--color-selectable-bg);
+  color: var(--color-text-on-accent);
+}
+
+/* Skeleton de chips */
+.chip-skeleton {
+  display: block;
+  width: 6.5rem;
+  height: var(--touch-target);
+  flex: 0 0 auto;
+  border-radius: var(--radius-full);
+  background-image: var(--gradient-skeleton);
+  background-size: 200% 100%;
+  animation: chip-shimmer 1.4s linear infinite;
+}
+
+@keyframes chip-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (min-width: 641px) {
+  .category-chips {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chip-skeleton {
+    animation: none !important;
+    background: var(--color-surface-2) !important;
+  }
+}

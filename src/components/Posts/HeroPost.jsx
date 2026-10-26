@@ -1,48 +1,61 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import FallbackImage from '../Shared/FallbackImage.jsx';
+import { formatDate } from '../../utils/formatDate.js';
+import './HeroPost.css';
 
-const HeroPost = ({ post }) => {
-  const { title, imageCover, date, excerpt, id } = post;
-  
+export function HeroSkeleton() {
   return (
-    <article 
-      className="hero-post relative w-full rounded-lg mb-8 sm:mb-12 overflow-hidden transition-transform duration-300 hover:scale-105"
-    >
-      {/* Imagem capa com overlay gradient */}
-      <div className="hero-image relative aspect-[16/9]">
-        <img 
-          src={imageCover} 
-          alt={title} 
-          className="w-full h-full object-cover transition-opacity duration-300"
-        />
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-        </div>
+    <div className="hero-skeleton" role="status" aria-live="polite">
+      <span className="sr-only">Carregando o post em destaque…</span>
+      <div className="hero-skeleton__media" aria-hidden="true">
+        <span className="hero-skeleton__line hero-skeleton__line--title" />
+        <span className="hero-skeleton__line hero-skeleton__line--meta" />
       </div>
-      
-      {/* Conteúdo do post */}
-      <div className="absolute bottom-0 left-0 right-0 px-6 py-8">
-        <div className="max-w-md">
-          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white mb-2">
-            {title}
-          </h2>
-          <div className="flex items-center gap-2 text-white/80 text-sm">
-            {date && <span>{date}</span>}
+    </div>
+  );
+}
+
+function HeroPost({ post }) {
+  if (!post) return null;
+
+  return (
+    <article className="hero">
+      <a
+        className="hero__link"
+        href={`#/post/${post.slug}`}
+        aria-label={`Ler o artigo em destaque: ${post.title}`}
+      >
+        <div className="hero__media">
+          <FallbackImage
+            className="hero__img"
+            src={post.imageCover}
+            alt={post.imageAlt || ''}
+            width={1280}
+            height={720}
+            loading="eager"
+            fetchpriority="high"
+          />
+          <div className="hero__overlay" aria-hidden="true" />
+        </div>
+
+        <div className="hero__content">
+          <span className="hero__eyebrow">Destaque</span>
+          <h3 className="hero__title">{post.title}</h3>
+          <div className="hero__meta">
+            <time dateTime={post.date}>{formatDate(post.date)}</time>
+            {post.author ? (
+              <>
+                <span className="hero__dot" aria-hidden="true">
+                  ·
+                </span>
+                <span>{post.author}</span>
+              </>
+            ) : null}
           </div>
         </div>
-      </div>
+      </a>
     </article>
   );
-};
-
-HeroPost.propTypes = {
-  post: {
-    title: PropTypes.string.isRequired,
-    imageCover: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    excerpt: PropTypes.string,
-    id: PropTypes.string
-  }
-};
+}
 
 export default HeroPost;

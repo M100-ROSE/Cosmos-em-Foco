@@ -1,0 +1,170 @@
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: var(--grid-gap-sm);
+}
+
+@media (min-width: 641px) {
+  .post-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--grid-gap-md);
+  }
+}
+
+@media (min-width: 1025px) {
+  .post-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .post-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.post-grid__footer {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-7);
+}
+
+.post-grid__error {
+  display: flex;
+  max-width: 32rem;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  margin-inline: auto;
+  padding: var(--space-9) var(--space-5);
+  text-align: center;
+}
+
+.post-grid__error-icon {
+  color: var(--color-danger);
+  opacity: 0.9;
+}
+
+.post-grid__error-title {
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-h3);
+}
+
+.post-grid__error-text {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.post-grid__error--inline {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-block: var(--space-5);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-body-sm);
+}
+
+/* --------------------------------------------------------------------------
+   Skeletons
+   -------------------------------------------------------------------------- */
+.skeleton-card {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface-1);
+}
+
+.skeleton-card__media {
+  aspect-ratio: var(--card-image-aspect);
+  background-image: var(--gradient-skeleton);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s linear infinite;
+}
+
+.skeleton-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+}
+
+.skeleton-line {
+  display: block;
+  height: 0.75rem;
+  border-radius: var(--radius-sm);
+  background-image: var(--gradient-skeleton);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s linear infinite;
+}
+
+.skeleton-line--eyebrow {
+  width: 38%;
+  height: 0.625rem;
+}
+
+.skeleton-line--title {
+  width: 100%;
+  height: 1rem;
+}
+
+.skeleton-line--title-short {
+  width: 70%;
+  height: 1rem;
+}
+
+.skeleton-line--meta {
+  width: 40%;
+}
+
+.skeleton-line--excerpt {
+  width: 100%;
+}
+
+.skeleton-line--excerpt-short {
+  width: 78%;
+}
+
+@keyframes skeleton-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (min-width: 641px) {
+  .skeleton-card__body {
+    padding: var(--space-5);
+  }
+}
+
+/* Quantidade de skeletons acompanha o número de colunas do breakpoint
+   (spec §4.8), evitando cards extras empilhados no mobile. */
+@media (max-width: 640px) {
+  .post-grid > .skeleton-card:not(:first-child) {
+    display: none;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .post-grid > .skeleton-card:nth-child(n + 3) {
+    display: none;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1279px) {
+  .post-grid > .skeleton-card:nth-child(n + 4) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-card__media,
+  .skeleton-line {
+    animation: none !important;
+    background: var(--color-surface-2) !important;
+  }
+}

@@ -1,57 +1,80 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import FallbackImage from '../Shared/FallbackImage.jsx';
+import { formatDate } from '../../utils/formatDate.js';
+import './PostCard.css';
 
-const PostCard = ({ post, onCardClick }) => {
-  const { title, imageCover, date, excerpt, id } = post;
-  
+function CalendarIcon() {
   return (
-    <article
-      className="post-card group bg-white/95 backdrop-filter: blur(5px) rounded-lg overflow-hidden border border-white/20 transition-all duration-300 hover:translate-y-4 hover:scale-102 hover:shadow-xl"
-      onClick={() => onCardClick(id)}
+    <svg
+      className="post-card__meta-icon"
+      viewBox="0 0 24 24"
+      width="14"
+      height="14"
+      aria-hidden="true"
+      focusable="false"
     >
-      {/* Imagem capa */}
-      <div className="relative aspect-[16/9]">
-        <img 
-          src={imageCover} 
-          alt={title} 
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-      </div>
-      
-      {/* Conteúdo sobre a imagem */}
-      <div className="absolute bottom-0 left-0 right-0 p-5">
-        <div className="max-w-none">
-          <h3 className="text-base sm:text-sm font-serif font-medium text-[var(--night-light)] line-clamp-3 line-clamp-rows-3 mb-2">
-            {title}
-          </h3>
-          <div className="flex items-center gap-2 mt-2 text-gray-500 text-xs">
-            <span className="flex items-center gap-1">
-              <svg className="w-3 h-3 text-current" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M8 7h8l-2 2-6 6-6-6z"/>
-              </svg>
-              {date}
-            </span>
+      <rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" strokeWidth="2" />
+      <path d="M8 3v4M16 3v4M3 11h18" fill="none" stroke="currentColor" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function ArrowIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false">
+      <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function PostCard({ post }) {
+  if (!post) return null;
+
+  return (
+    <article className="post-card">
+      <a className="post-card__link" href={`#/post/${post.slug}`}>
+        <figure className="post-card__media">
+          <FallbackImage
+            className="post-card__img"
+            src={post.imageCover}
+            alt={post.imageAlt || ''}
+            width={640}
+            height={360}
+            loading="lazy"
+            sizes="(min-width: 1280px) 25vw, (min-width: 1025px) 33vw, (min-width: 641px) 50vw, 100vw"
+          />
+        </figure>
+
+        <div className="post-card__body">
+          {post.categoryLabel ? (
+            <span className="post-card__eyebrow">{post.categoryLabel}</span>
+          ) : null}
+
+          <h3 className="post-card__title">{post.title}</h3>
+
+          <div className="post-card__meta">
+            <CalendarIcon />
+            <time dateTime={post.date}>{formatDate(post.date)}</time>
+            {post.author ? (
+              <>
+                <span className="post-card__dot" aria-hidden="true">
+                  ·
+                </span>
+                <span>{post.author}</span>
+              </>
+            ) : null}
           </div>
-          {excerpt && (
-            <p className="mt-1 text-gray-500 text-xs line-clamp-3 line-clamp-rows-3">
-              {excerpt}
-            </p>
-          )}
+
+          {post.excerpt ? <p className="post-card__excerpt">{post.excerpt}</p> : null}
+
+          <span className="post-card__cta">
+            Ler artigo
+            <ArrowIcon />
+          </span>
         </div>
-      </div>
+      </a>
     </article>
   );
-};
-
-PostCard.propTypes = {
-  post: {
-    title: PropTypes.string.isRequired,
-    imageCover: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    excerpt: PropTypes.string,
-    id: PropTypes.string
-  },
-  onCardClick: PropTypes.func
-};
+}
 
 export default PostCard;
